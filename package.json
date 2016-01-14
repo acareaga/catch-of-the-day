@@ -1,0 +1,23 @@
+{
+  "name": "catch-of-the-day",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "gulp": "3.9.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acareaga/catch-of-the-day.git"
+  },
+  "author": "Aaron Careaga <aaroncareaga@gmail.com> (http://www.aaroncareaga.com/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/acareaga/catch-of-the-day/issues"
+  },
+  "homepage": "https://github.com/acareaga/catch-of-the-day#readme"
+}
