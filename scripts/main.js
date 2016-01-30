@@ -27,10 +27,6 @@ var App = React.createClass({
   }
 });
 
-/*
-  Header
-  <Header/>
-*/
 var Header = React.createClass({
   render : function() {
     return (
@@ -47,10 +43,6 @@ var Header = React.createClass({
   }
 })
 
-/*
-  Order
-  <Order/>
-*/
 var Order = React.createClass({
   render : function() {
     return (
@@ -59,10 +51,6 @@ var Order = React.createClass({
   }
 })
 
-/*
-  Inventory
-  <Inventory/>
-*/
 var Inventory = React.createClass({
   render : function() {
     return (
@@ -70,12 +58,6 @@ var Inventory = React.createClass({
     )
   }
 })
-
-
-/*
-  StorePicker
-  This will let us make <StorePicker/>
-*/
 
 var StorePicker = React.createClass({
   mixins : [History],
@@ -97,20 +79,11 @@ var StorePicker = React.createClass({
 
 });
 
-/*
-  Not Found
-*/
-
 var NotFound = React.createClass({
   render : function() {
     return <h1>Not Found!</h1>
   }
 });
-
-
-/*
-  Routes
-*/
 
 var routes = (
   <Router history={createBrowserHistory()}>
