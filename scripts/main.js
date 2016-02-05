@@ -8,9 +8,6 @@ var History = ReactRouter.History;
 var createBrowserHistory = require('history/lib/createBrowserHistory');
 
 var h = require('./helpers');
-/*
-  App
-*/
 
 var App = React.createClass({
 
