@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+
 var ReactRouter = require('react-router');
 var Router  = ReactRouter.Router;
 var Route = ReactRouter.Route;
@@ -8,8 +9,29 @@ var createBrowserHistory = require('history/lib/createBrowserHistory');
 
 var h = require('./helpers');
 
-var App = React.createClass({
+/*
+  App
+*/
 
+var App = React.createClass({
+  getInitialState : function() {
+    return {
+      fishes : {},
+      order : {}
+    }
+  },
+  addFish : function(fish) {
+    var timestamp = (new Date()).getTime();
+    // update the state object
+    this.state.fishes['fish-' + timestamp] = fish;
+    // set the state
+    this.setState({ fishes : this.state.fishes });
+  },
+  loadSamples : function() {
+    this.setState({
+      fishes : require('./sample-fishes')
+    });
+  },
   render : function() {
     return (
       <div className="catch-of-the-day">
@@ -17,12 +39,55 @@ var App = React.createClass({
           <Header tagline="Fresh Seafood Market" />
         </div>
         <Order/>
-        <Inventory/>
+        <Inventory addFish={this.addFish} loadSamples={this.loadSamples}/>
       </div>
     )
   }
 });
 
+/*
+  Add Fish Form
+  <AddFishForm />
+*/
+
+var AddFishForm = React.createClass({
+  createFish : function(event) {
+    // 1. Stop the form from submitting
+    event.preventDefault();
+    // 2. Take the data from the form and create an object
+    var fish = {
+      name : this.refs.name.value,
+      price : this.refs.price.value,
+      status : this.refs.status.value,
+      desc : this.refs.desc.value,
+      image : this.refs.image.value
+    }
+
+    // 3. Add the fish to the App State
+    this.props.addFish(fish);
+    this.refs.fishForm.reset();
+  },
+  render : function() {
+    return (
+      <form className="fish-edit" ref="fishForm" onSubmit={this.createFish}>
+        <input type="text" ref="name" placeholder="Fish Name"/>
+        <input type="text" ref="price" placeholder="Fish Price" />
+        <select ref="status">
+          <option value="available">Fresh!</option>
+          <option value="unavailable">Sold Out!</option>
+        </select>
+        <textarea type="text" ref="desc" placeholder="Desc"></textarea>
+        <input type="text" ref="image" placeholder="URL to Image" />
+        <button type="submit">+ Add Item </button>
+      </form>
+    )
+  }
+});
+
+/*
+  Header
+  <Header/>
+*/
 var Header = React.createClass({
   render : function() {
     return (
@@ -39,6 +104,10 @@ var Header = React.createClass({
   }
 })
 
+/*
+  Order
+  <Order/>
+*/
 var Order = React.createClass({
   render : function() {
     return (
@@ -47,13 +116,28 @@ var Order = React.createClass({
   }
 })
 
+/*
+  Inventory
+  <Inventory/>
+*/
 var Inventory = React.createClass({
   render : function() {
     return (
-      <p>Inventory</p>
+      <div>
+        <h2>Inventory</h2>
+
+        <AddFishForm {...this.props} />
+        <button onClick={this.props.loadSamples}>Load Sample Fishes</button>
+      </div>
     )
   }
 })
+
+
+/*
+  StorePicker
+  This will let us make <StorePicker/>
+*/
 
 var StorePicker = React.createClass({
   mixins : [History],
@@ -75,11 +159,20 @@ var StorePicker = React.createClass({
 
 });
 
+/*
+  Not Found
+*/
+
 var NotFound = React.createClass({
   render : function() {
     return <h1>Not Found!</h1>
   }
 });
+
+
+/*
+  Routes
+*/
 
 var routes = (
   <Router history={createBrowserHistory()}>
